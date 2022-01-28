@@ -7,5 +7,5 @@ metadata:
 data:
   POSTGRES_DB: inventory_pg
   POSTGRES_USER: postgresadmin
-  POSTGRES_PORT: "30001"
+  POSTGRES_PORT: "5432"
   POSTGRES_HOST: "10.0.2.15"
