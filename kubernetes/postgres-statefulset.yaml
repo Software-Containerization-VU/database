@@ -14,7 +14,6 @@ spec:
     app: postgres-app
 
 ---
-
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -22,7 +21,7 @@ metadata:
   labels:
     app: postgres
 spec:
-  serviceName: 'postgres-headless-service'
+  serviceName: "postgres-headless-service"
   replicas: 1
   selector:
     matchLabels:
@@ -35,18 +34,19 @@ spec:
       containers:
         - name: postgres-container
           image: postgres:13.1-alpine
-          imagePullPolicy: 'IfNotPresent'
+          imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 5432 # Default PostgreSQL port
               name: postgres
           envFrom: # Defines all ConfigMap's and Secret's data as container environment variables
-            - configMapRef: 
+            - configMapRef:
                 name: postgres-config
             - secretRef:
                 name: postgres-secret
           volumeMounts:
             - name: postgresdb
               mountPath: /var/lib/postgresql/data
+              subPath: postgres
       # volumes:
       #   - name: postgresdb
       #     persistentVolumeClaim:
@@ -55,7 +55,7 @@ spec:
     - metadata:
         name: postgresdb
       spec:
-        accessModes: ['ReadWriteOnce']
+        accessModes: ["ReadWriteOnce"]
         resources:
           requests:
             storage: 5Gi
